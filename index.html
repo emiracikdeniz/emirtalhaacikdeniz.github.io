@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trefanya - Neon Sosyal Medya</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <!-- SPLASH EKRANI -->
+    <div id="splash-screen">
+        <div class="splash-content">
+            <h1 class="neon-text">TREFANYA</h1>
+            <div class="loader"></div>
+            <p style="color:rgba(255,255,255,0.3);font-size:12px;margin-top:10px;">Yükleniyor...</p>
+        </div>
+    </div>
+
+    <!-- HABER ŞERİDİ -->
+    <div id="news-ticker">
+        <div class="ticker-wrap">
+            <div class="ticker-text" id="tickerText">🌟 Trefanya'ya Hoş Geldiniz! Neon Dünyasına Adım Atın 🌟</div>
+        </div>
+    </div>
+
+    <!-- GİRİŞ EKRANI -->
+    <div id="login-screen">
+        <div class="login-container">
+            <h2 class="neon-text">TREFANYA</h2>
+            <div id="loginForm">
+                <input type="text" id="loginUsername" placeholder="Kullanıcı Adı" class="neon-input" value="emir" />
+                <input type="password" id="loginPassword" placeholder="Şifre" class="neon-input" value="qazwsxedc" />
+                <button id="loginBtn" class="neon-btn">Giriş Yap</button>
+                <button id="registerBtn" class="neon-btn-secondary">Kayıt Ol</button>
+                <div id="loginMessage"></div>
+            </div>
+            <div id="registerForm" style="display:none;">
+                <input type="text" id="regUsername" placeholder="Kullanıcı Adı" class="neon-input" />
+                <input type="password" id="regPassword" placeholder="Şifre" class="neon-input" />
+                <input type="text" id="regDisplayName" placeholder="Görünen İsim" class="neon-input" />
+                <button id="registerSubmitBtn" class="neon-btn">Kaydol</button>
+                <button id="backToLoginBtn" class="neon-btn-secondary">Geri Dön</button>
+                <div id="registerMessage"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ANA UYGULAMA -->
+    <div id="main-app" style="display:none;">
+        <!-- NAVBAR -->
+        <nav id="navbar">
+            <div class="nav-container">
+                <div class="nav-left">
+                    <span class="brand neon-text">TREFANYA</span>
+                </div>
+                <div class="nav-center">
+                    <input type="text" id="searchInput" placeholder="🔍 Ara..." />
+                </div>
+                <div class="nav-right">
+                    <span id="userDisplayName" class="user-name">Misafir</span>
+                    <img id="userProfilePic" class="profile-pic-small" src="" alt="Profil" />
+                    <button id="logoutBtn" class="btn-neon-small"><i class="fas fa-sign-out-alt"></i></button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- İÇERİK -->
+        <div id="app-content">
+            <!-- SOL SİDEBAR -->
+            <aside id="left-sidebar">
+                <ul class="sidebar-menu">
+                    <li><a href="#" data-page="feed" class="active"><i class="fas fa-home"></i> Ana Sayfa</a></li>
+                    <li><a href="#" data-page="profile"><i class="fas fa-user"></i> Profil</a></li>
+                    <li><a href="#" data-page="messages"><i class="fas fa-envelope"></i> IM</a></li>
+                    <li><a href="#" data-page="groups"><i class="fas fa-users"></i> Gruplar</a></li>
+                    <li><a href="#" data-page="notepad"><i class="fas fa-sticky-note"></i> Not Defteri</a></li>
+                    <li id="adminPanelLink" style="display:none;"><a href="#" data-page="admin"><i class="fas fa-crown"></i> Admin</a></li>
+                </ul>
+                <div class="sidebar-footer">
+                    <span id="onlineCount">Çevrimiçi: 0</span>
+                </div>
+            </aside>
+
+            <!-- ANA İÇERİK -->
+            <main id="main-content">
+                <!-- FEED -->
+                <div id="page-feed" class="page active">
+                    <h2 style="font-size:20px;color:#00ff88;margin-bottom:20px;">Ana Sayfa</h2>
+                    <div class="new-post">
+                        <textarea id="postContent" placeholder="Ne düşünüyorsun? #etiket"></textarea>
+                        <div class="new-post-actions">
+                            <button id="postMediaBtn"><i class="fas fa-image"></i> Medya Ekle</button>
+                            <button id="postPollBtn"><i class="fas fa-poll"></i> Anket</button>
+                            <button id="submitPostBtn" class="submit-post"><i class="fas fa-paper-plane"></i> Paylaş</button>
+                        </div>
+                        <input type="file" id="mediaInput" accept="image/*,video/*" style="display:none;" />
+                        <div id="pollCreator" style="display:none;margin-top:10px;">
+                            <input type="text" id="pollQuestion" placeholder="Anket sorusu" class="neon-input" style="margin:5px 0;" />
+                            <input type="text" id="pollOption1" placeholder="Seçenek 1" class="neon-input" style="margin:5px 0;" />
+                            <input type="text" id="pollOption2" placeholder="Seçenek 2" class="neon-input" style="margin:5px 0;" />
+                            <input type="text" id="pollOption3" placeholder="Seçenek 3 (opsiyonel)" class="neon-input" style="margin:5px 0;" />
+                            <button id="addPollBtn" class="neon-btn" style="font-size:12px;padding:8px;">Anket Ekle</button>
+                        </div>
+                    </div>
+                    <div id="feedContainer"></div>
+                </div>
+
+                <!-- PROFİL -->
+                <div id="page-profile" class="page">
+                    <div class="profile-header">
+                        <img id="profileAvatar" class="profile-avatar" src="" alt="Profil" />
+                        <div class="profile-name" id="profileName">Kullanıcı</div>
+                        <div class="profile-title" id="profileTitle">🌟 Yeni Üye</div>
+                        <div class="profile-bio" id="profileBio">Merhaba! Ben Trefanya'dayım.</div>
+                        <div class="badge-container" id="profileBadges"></div>
+                        <div class="profile-stats">
+                            <div><div class="number" id="profilePosts">0</div><div class="label">Gönderi</div></div>
+                            <div><div class="number" id="profileFollowers">0</div><div class="label">Takipçi</div></div>
+                            <div><div class="number" id="profileFollowing">0</div><div class="label">Takip</div></div>
+                        </div>
+                        <button id="editProfileBtn" class="profile-edit-btn"><i class="fas fa-edit"></i> Düzenle</button>
+                        <button id="changePasswordBtn" class="profile-edit-btn" style="border-color:#ff00aa;color:#ff00aa;margin-left:10px;"><i class="fas fa-key"></i> Şifre Değiştir</button>
+                    </div>
+                    <div id="profilePostsContainer"></div>
+                </div>
+
+                <!-- MESAJLAR (IM) -->
+                <div id="page-messages" class="page">
+                    <h2 style="font-size:20px;color:#00ff88;margin-bottom:20px;">💬 IM - Özel Mesajlar</h2>
+                    <div class="im-container">
+                        <div class="im-users" id="imUserList">
+                            <div style="color:rgba(255,255,255,0.3);text-align:center;padding:20px;font-size:12px;">Henüz mesajlaşacak kimse yok</div>
+                        </div>
+                        <div class="im-chat">
+                            <div class="im-messages" id="imMessages">
+                                <div style="color:rgba(255,255,255,0.3);text-align:center;padding:40px;font-size:14px;">Bir konuşma başlatmak için soldaki bir kullanıcıyı seç</div>
+                            </div>
+                            <div class="im-input">
+                                <input type="text" id="imInput" placeholder="Mesaj yaz..." />
+                                <button id="imSendBtn"><i class="fas fa-paper-plane"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GRUPLAR -->
+                <div id="page-groups" class="page">
+                    <h2 style="font-size:20px;color:#00ff88;margin-bottom:20px;">👥 Gruplar</h2>
+                    <button id="createGroupBtn" class="neon-btn" style="width:auto;padding:8px 20px;font-size:12px;margin-bottom:20px;"><i class="fas fa-plus"></i> Grup Oluştur</button>
+                    <div id="groupsContainer"></div>
+                </div>
+
+                <!-- NOT DEFTERİ -->
+                <div id="page-notepad" class="page">
+                    <h2 style="font-size:20px;color:#00ff88;margin-bottom:20px;">📝 Not Defteri</h2>
+                    <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;">
+                        <input type="text" id="noteTitle" placeholder="Not başlığı" class="neon-input" style="flex:1;min-width:150px;" />
+                        <input type="text" id="noteContent" placeholder="Not içeriği" class="neon-input" style="flex:2;min-width:200px;" />
+                        <button id="addNoteBtn" class="neon-btn" style="width:auto;padding:8px 20px;font-size:12px;">Ekle</button>
+                    </div>
+                    <div id="notesContainer"></div>
+                </div>
+
+                <!-- ADMIN PANEL -->
+                <div id="page-admin" class="page">
+                    <h2 style="font-size:20px;color:#ff00aa;margin-bottom:20px;">👑 Admin Panel</h2>
+                    <div id="adminContainer"></div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- NIKO - AI ASİSTAN -->
+    <div id="niko-assistant">
+        <div id="niko-panel">
+            <div id="niko-header">
+                <span>🤖 Niko</span>
+                <button id="niko-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="niko-messages">
+                <div class="niko-msg bot">Merhaba! Ben Niko, Trefanya'nın AI asistanıyım. Size nasıl yardımcı olabilirim?</div>
+            </div>
+            <div id="niko-input-area">
+                <input type="text" id="niko-input" placeholder="Niko'ya sor..." />
+                <button id="niko-voice-btn"><i class="fas fa-microphone"></i></button>
+                <button id="niko-send-btn"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+        <button id="niko-toggle"><i class="fas fa-robot"></i></button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
